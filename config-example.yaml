@@ -1,0 +1,6 @@
+apiToken: 123456789
+records:
+  home.example.com:
+    user: home-example
+    pass: S3cre3t
+    zone: <id-of-hetzner-dns-zone>

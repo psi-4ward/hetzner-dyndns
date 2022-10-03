@@ -1,0 +1,27 @@
+version: '3'
+services:
+
+  dyndns:
+    image: denoland/deno:alpine-1.26.0
+    restart: unless-stopped
+    volumes:
+      - .:/app
+    networks:
+      - public
+    working_dir: /app
+    user: deno
+    command:
+      - /bin/deno
+      - run
+      - --no-prompt
+      - --allow-net
+      - --allow-read=config.yaml
+      - index.ts
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.dyndns.rule=Host(`example.com`)
+      - traefik.http.services.dyndns.loadbalancer.server.port=8080
+
+networks:
+  public:
+    external: true
